@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Devops</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Open+Sans:400,300'>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <% if user_signed_in? %>
+  <div id="menu">
+    <ul>
+      <%= link_to dashboard_path do %>
+        <li>Invoices</li>
+      <% end %>
+      <%= link_to "#" do %>
+        <li>Add Invoice</li>
+      <% end %>        
+      <%= link_to "#" do %>
+        <li>Clients</li>
+      <% end %> 
+      <%= link_to "#" do %>
+        <li>Add Client</li>
+      <% end %>            
+      <%= link_to destroy_user_session_path, :method => :delete  do %>
+        <li>Sign Out</li>
+      <% end %>
+    </ul>
+  </div>
+  <div id="bar">
+    <a href="#"><h1>Menu</h1></a>
+  </div>
+  <% end %>
+  <%= yield %>
+  <script>
+  $(document).ready(function(){
+    $("#bar a").click(function(){ 
+      event.preventDefault();
+      $("#menu").slideToggle("slow");
+    });
+  });
+  </script>
+</body>
+</html>

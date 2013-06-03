@@ -1,0 +1,21 @@
+<div id="login">
+<%= form_for(resource, :as => resource_name, :url => session_path(resource_name, :autocomplete => :off)) do |f| %>
+  <fieldset>
+    <p>
+      <%= f.text_field :email, :autofocus => true, :required => true, :onBlur => "if(this.value=='')this.value='Username'", :onFocus => "if(this.value=='Username')this.value='' " %>
+    </p>
+    <p>
+      <%= f.password_field :password, :required => true, :onBlur => "if(this.value=='')this.value='Password'", :onFocus => "if(this.value=='Password')this.value='' "%>
+    </p>
+
+    <% if devise_mapping.rememberable? -%>
+      <div><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
+    <% end -%>
+
+    <div><%= f.submit "Sign in" %></div>
+  </fieldset>
+<% end %>
+</div>
+<%#= render "devise/shared/links" %>
+
+
