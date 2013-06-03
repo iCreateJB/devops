@@ -1,0 +1,22 @@
+local: &local
+  host: localhost
+  port: 5432
+  username: 
+  password: 
+  adapter: postgresql 
+  pool: 5
+  timeout: 5000
+  reconnect: true
+
+development:
+  <<: *local
+  database: devops_development
+
+test:
+  <<: *local
+  username: postgres
+  database: devops_test
+
+production: 
+  <<: *local
+  database: devops
