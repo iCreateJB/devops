@@ -37,17 +37,20 @@ describe InvoiceService do
   describe "Validations" do 
     it "should be invalid when .total is blank" do 
       options.delete(:items)
-      subject.send(:valid?).should == false
+      subject.valid?
+      subject.errors.include?(:items).should be_true
     end
 
     it "should be invalid when .client is blank" do 
       options.delete(:client_id)
-      subject.send(:valid?).should == false      
+      subject.valid?
+      subject.errors.include?(:client).should be_true
     end
 
     it "should be invalid when .project_id is blank" do 
       options.delete(:project_id)
-      subject.send(:valid?).should == false      
+      subject.valid?
+      subject.errors.include?(:project).should be_true
     end
   end
 

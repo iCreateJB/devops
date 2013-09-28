@@ -1,7 +1,10 @@
 class InvoiceService
+  include ActiveModel::Validations
   include Savable
   
-  attr_accessor :client, :project_id, :items, :total, :tax, :options, :errors
+  attr_accessor :options, :client, :project, :items, :total, :tax
+
+  validates :client, :project, :items, :presence => true
 
   def self.generate_invoice(options={})
     invoice = self.new(options)
@@ -10,13 +13,12 @@ class InvoiceService
   end
 
   def initialize(options={})
+    @options    = options    
     @client     = options[:client_id]
-    @project_id = options[:project_id]
+    @project    = options[:project_id]
     @items      = options[:items]
-    @options    = options
     @total      = 0.00
     @tax        = 0.00
-    @errors     = {}
   end
 
   def build_invoice
@@ -35,31 +37,10 @@ class InvoiceService
     @tax = (@total * 0.0725)
   end
 
-  def valid? 
-    validate_items
-    validate_client
-    validate_project
-    @errors.empty?
-  end
-
   def save
     if valid? 
       invoice = save_invoice(@options)
       save_invoice_items(invoice,@options)
     end
-  end
-
-private 
-
-  def validate_client
-    @errors[:client] = "Client can't be blank" if @client.blank?
-  end
-
-  def validate_project
-    @errors[:project] = "Project ID can't be blank" if @project_id.blank?
-  end
-
-  def validate_items
-    @errors[:items] = "Item is missing." if @items.blank?
   end
 end
