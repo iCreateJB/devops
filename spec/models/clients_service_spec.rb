@@ -35,27 +35,32 @@ describe ClientService do
   context "validations" do 
     it "should be invalid if :company is blank" do 
       options.delete(:company)
-      subject.send(:valid?).should == false
+      subject.valid?
+      subject.errors.include?(:company).should be_true
     end
 
     it "should be invalid if :email is blank" do 
       options.delete(:email)
-      subject.send(:valid?).should == false
+      subject.valid?
+      subject.errors.include?(:email).should be_true
     end
 
     it "should be invalid if :first_name is blank" do 
       options.delete(:first_name)
-      subject.send(:valid?).should == false
+      subject.valid?
+      subject.errors.include?(:first_name).should be_true
     end
 
     it "should be invalid if :last_name is blank" do 
       options.delete(:last_name)
-      subject.send(:valid?).should == false
+      subject.valid?
+      subject.errors.include?(:last_name).should be_true
     end
 
     it "should be invalid if :phone is blank" do 
       options.delete(:phone)
-      subject.send(:valid?).should == false
+      subject.valid?
+      subject.errors.include?(:phone).should be_true
     end
   end
 
