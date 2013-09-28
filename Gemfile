@@ -10,6 +10,7 @@ gem 'simplecov',      :require => false, :group => :test
 gem 'simplecov-rcov', :require => false, :group => :test
 
 group :development, :test, :qa do
+	gem 'thin'
   gem 'rspec'
   gem 'rspec-rails'
   gem 'database_cleaner'
