@@ -2,6 +2,7 @@ module Savable
   def save_client(options)
     @client = Client.create(:client_name => options[:company],
                             :enabled     => true,
+                            :user_id     => options[:user_id],
                             :api_key     => options[:api_key])
   end
 
