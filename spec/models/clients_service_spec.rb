@@ -3,6 +3,8 @@ require 'spec_helper'
 describe ClientService do 
   subject { ClientService.new(options) }
 
+  let(:user){ FactoryGirl.create(:user) }
+
   let(:options) { 
     {
       :project_name => "Upgrade for Beta", 
@@ -11,9 +13,14 @@ describe ClientService do
       :last_name    => "Doe", 
       :phone        => "12345678", 
       :email        => "john.doe@smartrent.pro", 
-      :website      => "http://www.smartrent.pro"
+      :website      => "http://www.smartrent.pro",
+      :user_id      => user.id
     }
   }
+
+  after do 
+    DatabaseCleaner.clean
+  end
 
   describe "Instance Methods" do 
     it { should respond_to(:setup) }
@@ -69,6 +76,7 @@ describe ClientService do
       client = mock_model("Client", :id => 1)
       Client.should_receive(:create).with({:client_name => options[:company], 
                                            :enabled => true, 
+                                           :user_id => user.id,
                                            :api_key => options[:api_key]}).and_return(client)
       Project.should_receive(:create).with({:client_id => client.id, 
                                             :project_name => options[:project_name], 

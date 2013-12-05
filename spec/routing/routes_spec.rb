@@ -5,6 +5,10 @@ describe "Routes" do
     { :get => '/dashboard' }.should route_to( :controller => 'index', :action => 'index' )
   end
 
+  it "GET => '/about'" do 
+    { :get => '/about' }.should route_to( :controller => 'about', :action => 'index' )
+  end
+
   it "GET => '/p/1'" do 
     { :get => '/p/1'}.should route_to( :controller => 'project', :action => 'edit', :project_id => "1")
   end
