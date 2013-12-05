@@ -14,6 +14,7 @@
 ActiveRecord::Schema.define(:version => 20130306000829) do
 
   create_table "clients", :force => true do |t|
+    t.integer  "user_id"
     t.string   "client_name", :limit => 55
     t.boolean  "enabled",                   :default => true
     t.string   "api_key"
