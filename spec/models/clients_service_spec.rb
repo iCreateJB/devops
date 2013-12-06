@@ -8,7 +8,7 @@ describe ClientService do
   let(:options) { 
     {
       :project_name => "Upgrade for Beta", 
-      :company      => "SmartRent LLC", 
+      :client_name  => "SmartRent LLC", 
       :first_name   => "John", 
       :last_name    => "Doe", 
       :phone        => "12345678", 
@@ -23,16 +23,10 @@ describe ClientService do
   end
 
   describe "Instance Methods" do 
-    it { should respond_to(:setup) }
     it { should respond_to(:save) }
   end
 
   context ".new" do 
-    it "should #setup a client" do 
-      subject.setup
-      subject.api_key.should_not be_nil
-    end
-
     it "should #save" do 
       subject.stub(:save).and_return()
       subject.save
@@ -41,9 +35,9 @@ describe ClientService do
 
   context "validations" do 
     it "should be invalid if :company is blank" do 
-      options.delete(:company)
+      options.delete(:client_name)
       subject.valid?
-      subject.errors.include?(:company).should be_true
+      subject.errors.include?(:client_name).should be_true
     end
 
     it "should be invalid if :email is blank" do 
@@ -76,10 +70,9 @@ describe ClientService do
       stripe = stub("Stripe::Customer", :id => '1_agfdh' )
       Stripe::Customer.should_receive(:create).and_return(stripe)
       client = mock_model("Client", :id => 1)
-      Client.should_receive(:create).with({:client_name => options[:company], 
+      Client.should_receive(:create).with({:client_name => options[:client_name], 
                                            :enabled => true, 
                                            :user_id => user.id,
-                                           :api_key => options[:api_key],
                                            :customer_key => stripe.id}).and_return(client)
       Project.should_receive(:create).with({:client_id => client.id, 
                                             :project_name => options[:project_name], 
