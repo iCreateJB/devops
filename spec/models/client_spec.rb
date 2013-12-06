@@ -1,6 +1,9 @@
 require 'spec_helper' 
 
 describe Client do 
+
+  subject{ Client.new }
+
   describe "Relationships" do 
     before(:each) do 
       @has_many = subject.reflections.select{|n, r| r.macro == :has_many }.collect{|i| i[0] }
@@ -39,4 +42,16 @@ describe Client do
       Client.attr_accessible[:default].include?("customer_key").should be_true
     end     
   end
+
+  it { should respond_to(:generate_api_key) }
+
+  context "#api_key" do 
+    it "should set the api key of the client" do 
+      client = Client.new(client_name: 'Test Client')
+      client.api_key.should == nil
+      client.save
+      client.api_key.should_not == nil
+    end
+  end
+
 end
