@@ -5,7 +5,8 @@ module Savable
       @client       = Client.create(client_name: options[:company], 
                                     enabled: true, 
                                     user_id: options[:user_id],
-                                    api_key: stripe_client.id)      
+                                    api_key: options[:api_key],
+                                    customer_key: stripe_client.id)      
     rescue
     end
   end

@@ -79,7 +79,8 @@ describe ClientService do
       Client.should_receive(:create).with({:client_name => options[:company], 
                                            :enabled => true, 
                                            :user_id => user.id,
-                                           :api_key => stripe.id}).and_return(client)
+                                           :api_key => options[:api_key],
+                                           :customer_key => stripe.id}).and_return(client)
       Project.should_receive(:create).with({:client_id => client.id, 
                                             :project_name => options[:project_name], 
                                             :due_date => options[:due_date]})

@@ -21,7 +21,7 @@ describe Client do
 
   describe "#attr_accessible" do 
     it "has 4 attributes" do
-      Client.attr_accessible[:default].size.should == 5
+      Client.attr_accessible[:default].size.should == 6
     end
     it "includes #user_id" do 
       Client.attr_accessible[:default].include?("user_id").should be_true
@@ -35,5 +35,8 @@ describe Client do
     it "includes #api_key" do
       Client.attr_accessible[:default].include?("api_key").should be_true
     end 
+    it "includes #customer_key" do
+      Client.attr_accessible[:default].include?("customer_key").should be_true
+    end     
   end
 end

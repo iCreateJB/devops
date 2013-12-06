@@ -11,16 +11,20 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130306000829) do
+ActiveRecord::Schema.define(:version => 20131206023705) do
 
   create_table "clients", :force => true do |t|
     t.integer  "user_id"
-    t.string   "client_name", :limit => 55
-    t.boolean  "enabled",                   :default => true
+    t.string   "client_name",  :limit => 55
+    t.boolean  "enabled",                    :default => true
     t.string   "api_key"
-    t.datetime "created_at",                                  :null => false
-    t.datetime "updated_at",                                  :null => false
+    t.datetime "created_at",                                   :null => false
+    t.datetime "updated_at",                                   :null => false
+    t.string   "customer_key", :limit => 55
   end
+
+  add_index "clients", ["api_key"], :name => "index_clients_on_api_key"
+  add_index "clients", ["customer_key"], :name => "index_clients_on_customer_key"
 
   create_table "contacts", :force => true do |t|
     t.integer  "client_id"
