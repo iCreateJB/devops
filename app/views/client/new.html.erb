@@ -1,25 +1,25 @@
 <div class="row">
   <div class="col-md-6">
-    <%= form_for @client, url: {action: :create}, :html => { :role => "form"} do |f| %>
-      <%= f.label :client_name %>
-      <%= f.text_field :client_name, :class => "form-control", :autofocus => true, :placeholder => "Company Name", :required => true %>
+    <%= form_tag url_for(controller: 'client', action: :create), :html => { :role => "form"} do |f| %>
+      <%= label_tag :client_name %>
+      <%= text_field_tag :client_name, nil, :class => "form-control", :autofocus => true, :placeholder => "Company Name", :required => true %>
 
-      <%= f.label :first_name %>
+      <%= label_tag :first_name %>
       <%= text_field_tag :first_name, nil, :class => "form-control", :placeholder => "First name", :required => true %>
 
-      <%= f.label :last_name %>
+      <%= label_tag :last_name %>
       <%= text_field_tag :last_name, nil, :class => "form-control", :placeholder => "Last name", :required => true %>  
 
-      <%= f.label :phone %>
+      <%= label_tag :phone %>
       <%= text_field_tag :phone, nil, :class => "form-control", :placeholder => "(xxx) xxx-xxxx", :required => true %>
 
 
-      <%= f.label :email %>
+      <%= label_tag :email %>
       <%= text_field_tag :email, nil, :class => "form-control", :placeholder => "Email address", :required => true %>
 
       <br />
 
-      <%= f.submit "Create", :class => "btn btn-lg btn-primary btn-block" %>
+      <%= submit_tag "Create", :class => "btn btn-lg btn-primary btn-block" %>
 
     <% end %>
   </div>
