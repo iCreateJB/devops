@@ -6,7 +6,8 @@ module Savable
       client       = Client.create(client_name: options[:client_name], enabled: true, 
                                     user_id: options[:user_id], customer_key: stripe_client.id)      
       return client
-    rescue
+    rescue Stripe::StripeError => e
+      Rails.logger.error "[ERROR] #{Time.now} : #{e}"
     end
   end
 
