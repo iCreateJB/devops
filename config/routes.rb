@@ -3,7 +3,7 @@ Devops::Application.routes.draw do
 
   resources :project, :only => [ :update ]
   resources :invoice, :only => [ :create ]
-  resources :client
+  resources :client,  :except => [ :index ]
   match '/i/:invoice_key',      :to => "invoice#show",  :as => "invoice"
   match '/s/:invoice_key',      :to => "invoice#send_invoice",  :as => "send_invoice"
   match '/invoice/:invoice_key',:to => "invoice#edit",  :as => "invoice_edit"
