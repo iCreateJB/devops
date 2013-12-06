@@ -1,12 +1,10 @@
 module Savable
   def save_client(options)
     begin 
-      stripe_client = Stripe::Customer.create( email: options[:email], description: options[:company])
-      @client       = Client.create(client_name: options[:company], 
-                                    enabled: true, 
-                                    user_id: options[:user_id],
-                                    api_key: options[:api_key],
-                                    customer_key: stripe_client.id)      
+      stripe_client = Stripe::Customer.create( email: options[:email], description: options[:company], 
+                                               meta_data: { first_name: options[:first_name], last_name: options[:last_name], phone: options[:phone]})
+      @client       = Client.create(client_name: options[:company], enabled: true, user_id: options[:user_id],
+                                    api_key: options[:api_key], customer_key: stripe_client.id)      
     rescue
     end
   end
