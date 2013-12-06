@@ -34,11 +34,13 @@ SET default_with_oids = false;
 
 CREATE TABLE clients (
     id integer NOT NULL,
+    user_id integer,
     client_name character varying(55),
     enabled boolean DEFAULT true,
     api_key character varying(255),
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    customer_key character varying(55)
 );
 
 
@@ -348,6 +350,20 @@ ALTER TABLE ONLY users
 
 
 --
+-- Name: index_clients_on_api_key; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_clients_on_api_key ON clients USING btree (api_key);
+
+
+--
+-- Name: index_clients_on_customer_key; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_clients_on_customer_key ON clients USING btree (customer_key);
+
+
+--
 -- Name: index_users_on_authentication_token; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -397,3 +413,5 @@ INSERT INTO schema_migrations (version) VALUES ('20130221003852');
 INSERT INTO schema_migrations (version) VALUES ('20130221003951');
 
 INSERT INTO schema_migrations (version) VALUES ('20130306000829');
+
+INSERT INTO schema_migrations (version) VALUES ('20131206023705');
