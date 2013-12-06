@@ -73,11 +73,13 @@ describe ClientService do
 
   context "Save" do 
     it "should .save" do 
+      stripe = stub("Stripe::Customer", :id => '1_agfdh' )
+      Stripe::Customer.should_receive(:create).and_return(stripe)
       client = mock_model("Client", :id => 1)
       Client.should_receive(:create).with({:client_name => options[:company], 
                                            :enabled => true, 
                                            :user_id => user.id,
-                                           :api_key => options[:api_key]}).and_return(client)
+                                           :api_key => stripe.id}).and_return(client)
       Project.should_receive(:create).with({:client_id => client.id, 
                                             :project_name => options[:project_name], 
                                             :due_date => options[:due_date]})
