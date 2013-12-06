@@ -9,6 +9,18 @@ class ClientController < ApplicationController
   end
 
   def create
+    @client = ClientService.new(params)
+    begin 
+      if @client.valid?
+        @client.save
+        redirect_to dashboard_path
+      else
+        raise
+      end      
+    rescue
+      flash[:error] = @client.errors.full_messages
+      redirect_to new_client_path
+    end
   end
 
   def update
