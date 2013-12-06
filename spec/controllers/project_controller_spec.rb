@@ -16,6 +16,7 @@ describe ProjectController do
   end
 
   describe "Instance Methods" do 
+    it { should respond_to(:index) }
     it { should respond_to(:edit) }
     it { should respond_to(:update) }
   end
