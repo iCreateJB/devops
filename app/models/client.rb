@@ -1,11 +1,17 @@
 class Client < ActiveRecord::Base
   has_many :projects
-  has_many :contacts
+  has_one :contact
   belongs_to :user
 
   attr_accessible :client_name, :enabled, :user_id, :api_key, :customer_key
   
   validates_uniqueness_of :client_name
+
+  scope :with_contact_by_customer_keys, lambda {|keys|
+    select('clients.id, clients.customer_key, clients.client_name, contacts.first_name, contacts.last_name, contacts.email').
+    joins("LEFT JOIN contacts ON clients.id = contacts.client_id").
+    where("clients.customer_key IN (?)", keys)
+  }
 
   before_save :generate_api_key
 
