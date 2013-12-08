@@ -16,7 +16,7 @@
         <td><%= i['last_name'] %></td>
         <td><%= i['email'] %></td>
         <td>
-          <%= button_tag 'Edit', :class => "btn btn-link" %>
+          <%= link_to 'Edit', edit_client_path(i['id']), :class => "btn btn-link" %>
           <%= button_tag 'Projects', :class => "btn btn-primary btn-xs" %>
           <%= button_tag 'Invoices', :class => "btn btn-success btn-xs" %>
         </td>
