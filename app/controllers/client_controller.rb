@@ -2,7 +2,8 @@ class ClientController < ApplicationController
   before_filter :authenticate_user!
 
   def new
-    @client = Client.new
+    @client       = Client.new
+    @current_user = current_user
   end
 
   def create
