@@ -6,6 +6,10 @@ class ClientController < ApplicationController
     @current_user = current_user
   end
 
+  def edit
+    @client       = Client.find(params[:id])
+  end
+
   def create
     @client = ClientService.new(params)
     begin 

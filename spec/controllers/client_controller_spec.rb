@@ -1,10 +1,13 @@
 require 'spec_helper'
 
 describe ClientController do 
+  it { should respond_to(:new) }
+  it { should respond_to(:edit) }
   it { should respond_to(:create) }
   it { should respond_to(:update) }
   it { should respond_to(:show) }
 
+  let(:client){ FactoryGirl.create(:client) }
   let(:user){ FactoryGirl.create(:user) }
 
   let(:params){
@@ -18,6 +21,7 @@ describe ClientController do
   }
 
   before(:each) do 
+    client
     user
     sign_in
   end
@@ -30,6 +34,14 @@ describe ClientController do
     it "should render #new" do 
       get :new
       response.should be_success
+    end
+  end
+
+  context "#edit" do 
+    it "should render #edit" do 
+      get :edit, { :id => client.id }
+      response.should be_success
+      assigns(:client).should_not be_nil
     end
   end
 
