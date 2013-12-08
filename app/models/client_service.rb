@@ -18,7 +18,7 @@ class ClientService
   def save
     if valid? 
       client = save_client(@options)
-      save_project(client,@options) if @options[:project_name]
+      save_project(client,@options) if !@options[:project_name].blank?
       save_contact(client,@options)
     end
   end
