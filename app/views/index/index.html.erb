@@ -1,0 +1,26 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>Company Name</th>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>E-mail</th>
+      <th colspan="2"></th>
+    </th>
+  </thead>
+  <tbody>
+    <% @clients.each do |i| %>
+      <tr>
+        <td><%= i['client_name'] %></td>
+        <td><%= i['first_name'] %></td>
+        <td><%= i['last_name'] %></td>
+        <td><%= i['email'] %></td>
+        <td>
+          <%= button_tag 'Edit', :class => "btn btn-link" %>
+          <%= button_tag 'Projects', :class => "btn btn-primary btn-xs" %>
+          <%= button_tag 'Invoices', :class => "btn btn-success btn-xs" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
