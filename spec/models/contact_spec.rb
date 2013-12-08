@@ -38,4 +38,12 @@ describe Contact do
       Contact.attr_accessible[:default].include?("payment_pin").should be_true
     end
   end
+
+  context "#new contact" do 
+    it "should downcase the email" do 
+      contact = Contact.new(first_name: 'Test', last_name: 'User', email: 'Test.User@devops.com')
+      contact.save
+      contact.email.should == 'test.user@devops.com'
+    end
+  end
 end

@@ -5,7 +5,13 @@ class Contact < ActiveRecord::Base
 
   before_save :generate_payment_pin
 
+  before_save :format_email
+
 private 
+  def format_email
+    self.email = email.downcase
+  end
+
   def generate_payment_pin
     self.payment_pin = SecureRandom.hex(16).gsub(/\D/,'')[0..7]
   end

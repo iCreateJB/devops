@@ -6,19 +6,24 @@ describe Client do
 
   describe "Relationships" do 
     before(:each) do 
+      @has_one  = subject.reflections.select{|n, r| r.macro == :has_one }.collect{|i| i[0] }
       @has_many = subject.reflections.select{|n, r| r.macro == :has_many }.collect{|i| i[0] }
     end
 
-    it "has 2 belongs_to" do 
-      @has_many.size.should == 2
+    it "has 1 has_many" do 
+      @has_many.size.should == 1
     end
 
     it "has_many :projects" do 
       @has_many.include?(:projects).should == true
     end
 
-    it "has_many :contacts" do 
-      @has_many.include?(:contacts).should == true
+    it "has 1 has_one" do 
+      @has_one.size.should == 1
+    end
+
+    it "has_one :contact" do 
+      @has_one.include?(:contact).should == true
     end
   end
 

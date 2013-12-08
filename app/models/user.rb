@@ -8,4 +8,11 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :first_name, :last_name, :email, :password, :password_confirmation, :remember_me, :authentication_token
+
+  before_save :format_email
+
+private
+  def format_email
+    self.email = email.downcase
+  end
 end
