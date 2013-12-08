@@ -7,7 +7,7 @@ class ClientController < ApplicationController
   end
 
   def edit
-    @client       = Client.find(params[:id])
+    @client       = Client.with_contact_info_by_user_and_client_id(current_user.id,params[:id])
   end
 
   def create

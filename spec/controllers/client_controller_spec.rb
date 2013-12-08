@@ -23,7 +23,7 @@ describe ClientController do
   before(:each) do 
     client
     user
-    sign_in
+    sign_in user
   end
 
   after do 

@@ -14,6 +14,13 @@ class Client < ActiveRecord::Base
     where("clients.customer_key IN (?)", keys)
   }
 
+  scope :with_contact_info_by_user_and_client_id, lambda {|user,client_id|
+    select('clients.id, clients.customer_key, clients.client_name, contacts.first_name, contacts.last_name, contacts.email').
+    joins("LEFT JOIN contacts ON clients.id = contacts.client_id").
+    where("clients.user_id = ?", user).
+    where("clients.id = ?", client_id)
+  }
+
   before_save :generate_api_key
 
   def generate_api_key
