@@ -7,7 +7,7 @@ class ClientService
   validates :client_name, :first_name, :last_name, :email, :phone, :presence => true
 
   def self.update(options={})
-    self.new(options).update
+    self.new(options)
   end
 
   def initialize(options={})
@@ -29,10 +29,9 @@ class ClientService
 
   def update
     if valid?
-      if update_stripe_customer
-        update_client
-        update_contact
-      end
+      update_stripe_customer
+      update_client(options)
+      update_contact(options)
     end
   end
 end

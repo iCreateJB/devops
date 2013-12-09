@@ -26,10 +26,10 @@ class ClientController < ApplicationController
   end
 
   def update
-    @client = ClientService.update(params)
+    @client = ClientService.new(params)
     begin 
       if @client.valid?
-        @client.save
+        @client.update
         redirect_to dashboard_path
       else
         raise

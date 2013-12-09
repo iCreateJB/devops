@@ -58,7 +58,9 @@ module Savable
   end
 
   def update_contact(options)
-    contact= Client.find(options[:client_id]).contact
-    contact.update_attributes(first_name: options[:first_name], last_name: options[:last_name], email: options[:email], phone: options[:phone].gsub(/\D/,''))    
+    client = Client.find(options[:client_id])
+    if !client.contact.blank?
+      client.contact.update_attributes(first_name: options[:first_name], last_name: options[:last_name], email: options[:email], phone: options[:phone].gsub(/\D/,''))
+    end
   end
 end

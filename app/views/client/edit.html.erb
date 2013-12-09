@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-md-6">
-    <%= form_tag url_for(controller: 'client', action: :create), :html => { :role => "form"} do |f| %>
+    <%= form_tag url_for( action: :update), method: :put do |f| %>
       <%= hidden_field_tag :user_id, @current_user.id %>
       <%= hidden_field_tag :client_id, @client['id'] %>
       <%= hidden_field_tag :customer_key, @client['customer_key'] %>
