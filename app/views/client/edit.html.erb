@@ -1,0 +1,41 @@
+<div class="row">
+  <div class="col-md-6">
+    <%= form_tag url_for(controller: 'client', action: :create), :html => { :role => "form"} do |f| %>
+      <%= hidden_field_tag :user_id, @current_user.id %>
+      <%= hidden_field_tag :client_id, @client['id'] %>
+      <%= hidden_field_tag :customer_key, @client['customer_key'] %>
+
+      <%= label_tag :client_name %>
+      <%= text_field_tag :client_name, @client['client_name'], :class => "form-control", :placeholder => "Company Name", :required => true %>
+
+      <%= label_tag :first_name %>
+      <%= text_field_tag :first_name, @client['first_name'], :class => "form-control", :placeholder => "First name" %>
+
+      <%= label_tag :last_name %>
+      <%= text_field_tag :last_name, @client['last_name'], :class => "form-control", :placeholder => "Last name" %>  
+
+      <%= label_tag :phone %>
+      <%= text_field_tag :phone, number_to_phone(@client['phone'], area: true), :class => "form-control", :placeholder => "(xxx) xxx-xxxx" %>
+
+      <%= label_tag :email %>
+      <%= text_field_tag :email, @client['email'], :class => "form-control", :placeholder => "Email address" %>
+
+      <br />
+
+      <div class="project-info" style="display:none;">
+        <%= label_tag :project_name %>
+        <%= text_field_tag :project_name, nil, :class => "form-control", :placeholder => "Project Name" %>
+
+        <%= label_tag :due_date %>
+        <%= text_field_tag :due_date, nil, :class => "form-control", :placeholder => "Due Date" %>
+        <br/>
+      </div>
+
+      <%= submit_tag "Update", :class => "btn btn-lg btn-success btn-block" %>
+
+    <% end %>
+  </div>
+  <div class="col-md-6">
+    
+  </div>
+</div
