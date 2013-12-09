@@ -7,7 +7,7 @@ describe ClientController do
   it { should respond_to(:update) }
   it { should respond_to(:show) }
 
-  let(:client){ FactoryGirl.create(:client) }
+  let(:client){ FactoryGirl.create(:client, user_id: user.id) }
   let(:user){ FactoryGirl.create(:user) }
 
   let(:params){
