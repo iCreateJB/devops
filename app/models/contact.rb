@@ -7,6 +7,8 @@ class Contact < ActiveRecord::Base
 
   before_save :format_email
 
+  validates_uniqueness_of :email
+
 private 
   def format_email
     self.email = email.downcase
