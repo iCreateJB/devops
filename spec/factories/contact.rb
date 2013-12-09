@@ -2,7 +2,9 @@ FactoryGirl.define do
   factory :contact, :class => 'Contact' do
     first_name "John"
     last_name "Doe"
-    email { "#{first_name}.#{last_name}@devops.com".downcase }
+    sequence :email do |n|
+      "#{first_name}.#{n}.#{last_name}@devops.com".downcase
+    end
     phone "2168676712"
   end
 end
