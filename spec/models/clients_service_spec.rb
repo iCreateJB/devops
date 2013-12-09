@@ -24,6 +24,8 @@ describe ClientService do
 
   describe "Instance Methods" do 
     it { should respond_to(:save) }
+    it { should respond_to(:update) }
+    it { subject.class.should respond_to(:update)}
   end
 
   context ".new" do 
@@ -83,6 +85,12 @@ describe ClientService do
                                             :email      => options[:email], 
                                             :phone      => options[:phone]})
       subject.save
+    end
+  end
+
+  context "Update" do 
+    it "should .update" do 
+      
     end
   end
 end

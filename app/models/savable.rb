@@ -3,8 +3,7 @@ module Savable
     begin 
       stripe_client = Stripe::Customer.create( email: options[:email], description: options[:client_name], 
                                                metadata: { first_name: options[:first_name], last_name: options[:last_name], phone: options[:phone]})
-      client       = Client.create(client_name: options[:client_name], enabled: true, 
-                                    user_id: options[:user_id], customer_key: stripe_client.id)      
+      client       = Client.create(client_name: options[:client_name], enabled: true, user_id: options[:user_id], customer_key: stripe_client.id)      
       return client
     rescue Stripe::StripeError => e
       Rails.logger.error "[ERROR] #{Time.now} : #{e}"
@@ -39,5 +38,27 @@ module Savable
                           :title            => item[:title],
                           :description      => item[:description])
     end
+  end
+
+  def update_stripe_customer
+    begin
+      stripe_client = Stripe::Customer.retrieve(options[:customer_key])
+      stripe_client.email       = options[:email]
+      stripe_client.description = options[:client_name]
+      stripe_client.metadata    = { first_name: options[:first_name], last_name: options[:last_name], phone: options[:phone] }
+      stripe_client.save
+    rescue Stripe::StripeError => e
+      Rails.logger.error "[ERROR] #{Time.now} : #{e}"
+    end
+  end
+
+  def update_client(options)
+    client = Client.find(options[:client_id])
+    client.update_attributes(client_name: options[:client_name])      
+  end
+
+  def update_contact(options)
+    contact= Client.find(options[:client_id]).contact
+    contact.update_attributes(first_name: options[:first_name], last_name: options[:last_name], email: options[:email], phone: options[:phone].gsub(/\D/,''))    
   end
 end

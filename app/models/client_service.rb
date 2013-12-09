@@ -6,6 +6,10 @@ class ClientService
 
   validates :client_name, :first_name, :last_name, :email, :phone, :presence => true
 
+  def self.update(options={})
+    self.new(options).update
+  end
+
   def initialize(options={})
     @options        = options
     @client_name    = options[:client_name]
@@ -20,6 +24,15 @@ class ClientService
       client = save_client(@options)
       save_project(client,@options) if !@options[:project_name].blank?
       save_contact(client,@options)
+    end
+  end
+
+  def update
+    if valid?
+      if update_stripe_customer
+        update_client
+        update_contact
+      end
     end
   end
 end

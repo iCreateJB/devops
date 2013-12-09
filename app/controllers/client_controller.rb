@@ -7,7 +7,7 @@ class ClientController < ApplicationController
   end
 
   def edit
-    @client       = Client.with_contact_info_by_user_and_client_id(current_user.id,params[:id])
+    @client       = Client.with_contact_info_by_user_and_client_id(current_user.id,params[:id]).first
   end
 
   def create
@@ -26,6 +26,18 @@ class ClientController < ApplicationController
   end
 
   def update
+    @client = ClientService.update(params)
+    begin 
+      if @client.valid?
+        @client.save
+        redirect_to dashboard_path
+      else
+        raise
+      end
+    rescue
+      flash[:error] = @client.errors.full_messages
+      redirect_to edit_client_path      
+    end
   end
 
   def show
