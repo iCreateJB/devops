@@ -42,4 +42,14 @@ class ClientController < ApplicationController
 
   def show
   end
+
+  def destroy
+    begin
+      ClientService.delete(params)
+    rescue => e
+      Rails.logger.error "[ERROR] #{Time.now} : #{e}"
+      flash[:error] = e
+    end
+    redirect_to dashboard_path    
+  end
 end
