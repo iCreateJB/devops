@@ -4,5 +4,8 @@ FactoryGirl.define do
       "Client #{n}"
     end
     enabled true
+    sequence :customer_key do |n|
+     "customer-key-#{n}"
+    end
   end
 end
