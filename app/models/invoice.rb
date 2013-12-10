@@ -1,5 +1,5 @@
 class Invoice < ActiveRecord::Base
-  belongs_to  :project, :foreign_key => :project_id
+  belongs_to  :project,       :foreign_key => :project_id
   has_many :invoice_items
 
   attr_accessible :project_id, :amount, :tax, :total, :invoice_key, :paid_on

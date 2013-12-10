@@ -1,6 +1,6 @@
 class Client < ActiveRecord::Base
-  has_many :projects
-  has_one :contact
+  has_many :projects, dependent: :destroy
+  has_one :contact,   dependent: :destroy
   belongs_to :user
 
   attr_accessible :client_name, :enabled, :user_id, :api_key, :customer_key
