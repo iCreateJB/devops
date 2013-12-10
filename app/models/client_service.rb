@@ -10,6 +10,10 @@ class ClientService
     self.new(options)
   end
 
+  def self.delete(options={})
+    self.new(options).delete
+  end
+
   def initialize(options={})
     @options        = options
     @client_name    = options[:client_name]
@@ -32,6 +36,17 @@ class ClientService
       update_stripe_customer
       update_client(options)
       update_contact(options)
+    end
+  end
+
+  def delete
+    begin 
+      client = Client.where(customer_key: options[:customer_key])
+      stripe = Stripe::Customer.retrieve(options[:customer_key])
+      stripe.delete
+      client.destroy()
+    rescue => e
+      Rails.logger.error "[ERROR] #{Time.now} : #{e}"
     end
   end
 end
