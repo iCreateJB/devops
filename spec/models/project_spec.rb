@@ -3,6 +3,8 @@ require 'spec_helper'
 describe Project do 
   describe "Validations" do 
     it { should validate_presence_of(:client_id) }
+    it { should validate_presence_of(:project_name) }
+    it { should validate_uniqueness_of(:project_name).scoped_to(:client_id) }
   end
 
   describe "Relationships" do 

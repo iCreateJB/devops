@@ -8,5 +8,6 @@ class Project < ActiveRecord::Base
     where("clients.user_id = ?", user)
   }
 
-  validates :client_id, :presence => true
+  validates :client_id, :project_name, :presence => true
+  validates_uniqueness_of :project_name, :scope => :client_id
 end
