@@ -1,6 +1,10 @@
 require 'spec_helper'
 
 describe Project do 
+  describe "Validations" do 
+    it { should validate_presence_of(:client_id) }
+  end
+
   describe "Relationships" do 
     before(:each) do 
       @belongs_to = subject.reflections.select{|n, r| r.macro == :belongs_to }.collect{|i| i[0] }    

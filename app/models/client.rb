@@ -5,6 +5,7 @@ class Client < ActiveRecord::Base
 
   attr_accessible :client_name, :enabled, :user_id, :api_key, :customer_key
   
+  validates :client_name, :presence => true
   validates_uniqueness_of :client_name
 
   scope :with_contact_by_user_and_customer_keys, lambda {|user,keys|

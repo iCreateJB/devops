@@ -1,6 +1,25 @@
 require 'spec_helper'
 
 describe Contact do 
+  let(:contact){ FactoryGirl.create(:contact, :client => client) }
+  let(:client){ FactoryGirl.create(:client) }
+
+  before(:each) do 
+    contact
+  end
+
+  after do 
+    DatabaseCleaner.clean
+  end
+
+  describe "Validations" do 
+    it { should validate_uniqueness_of(:email) }
+    it { should validate_presence_of(:email) }
+    it { should validate_presence_of(:first_name) }
+    it { should validate_presence_of(:last_name) }
+    it { should validate_presence_of(:phone) }
+  end
+
   describe "Relationships" do 
     before(:each) do 
       @belongs_to = subject.reflections.select{|n, r| r.macro == :belongs_to }.collect{|i| i[0] }
@@ -41,7 +60,7 @@ describe Contact do
 
   context "#new contact" do 
     it "should downcase the email" do 
-      contact = Contact.new(first_name: 'Test', last_name: 'User', email: 'Test.User@devops.com')
+      contact = Contact.new(first_name: 'Test', last_name: 'User', email: 'Test.User@devops.com', phone: '1234567890', client_id: client.id)
       contact.save
       contact.email.should == 'test.user@devops.com'
     end

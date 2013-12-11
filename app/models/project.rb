@@ -7,4 +7,6 @@ class Project < ActiveRecord::Base
     joins("LEFT JOIN clients ON projects.client_id = clients.id").
     where("clients.user_id = ?", user)
   }
+
+  validates :client_id, :presence => true
 end

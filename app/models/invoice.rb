@@ -4,6 +4,8 @@ class Invoice < ActiveRecord::Base
 
   attr_accessible :project_id, :amount, :tax, :total, :invoice_key, :paid_on
 
+  validates :project_id, :amount, :tax, :total, :invoice_key, :presence => true
+
   validates_uniqueness_of :invoice_key
 
   before_save :generate_invoice_key

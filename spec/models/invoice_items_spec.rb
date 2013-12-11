@@ -3,6 +3,12 @@ require 'spec_helper'
 describe InvoiceItems do
   subject { InvoiceItems.new }
 
+  describe "Validations" do 
+    it { should validate_presence_of(:invoice_id) }
+    it { should validate_presence_of(:amount) }
+    it { should validate_presence_of(:title)}
+  end
+
   describe "Relationships" do 
     before(:each) do 
       @belongs_to = subject.reflections.select{|n, r| r.macro == :belongs_to }.collect{|i| i[0] }

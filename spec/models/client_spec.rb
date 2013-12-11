@@ -4,6 +4,11 @@ describe Client do
 
   subject{ Client.new }
 
+  describe "Validations" do 
+    it { should validate_presence_of(:client_name) }
+    it { should validate_uniqueness_of(:client_name) }
+  end
+
   describe "Relationships" do 
     before(:each) do 
       @has_one  = subject.reflections.select{|n, r| r.macro == :has_one }.collect{|i| i[0] }
