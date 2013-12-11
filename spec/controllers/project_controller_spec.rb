@@ -55,8 +55,12 @@ describe ProjectController do
 
     it "should respond to update" do
       put :update, :id => project.id, :project => { :project_name => 'Test 1'}
-      update = Project.find(project.id)
-      update.project_name.should == 'Test 1'
+      response.should redirect_to dashboard_path
+    end
+
+    it "should not update" do 
+      put :update, :id => project.id, :project => { :project_name => nil }
+      response.should redirect_to edit_project_path
     end
   end
 end

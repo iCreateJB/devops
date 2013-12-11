@@ -30,10 +30,14 @@ class ProjectController < ApplicationController
   def update
     @project = Project.find(params[:id])
     begin
-      @project.update_attributes(params[:project])
-    rescue => e
-      Rails.logger.error "[ERROR] #{Time.now} : #{e}"
+      if @project.update_attributes(params[:project])
+        redirect_to dashboard_path
+      else
+        raise
+      end
+    rescue
+      flash[:error] = @project.errors.full_messages
+      redirect_to edit_project_path
     end
-    redirect_to :dashboard
   end
 end
