@@ -17,11 +17,18 @@ describe ProjectController do
 
   describe "Instance Methods" do 
     it { should respond_to(:index) }
+    it { should respond_to(:new) }
+    it { should respond_to(:create)}
     it { should respond_to(:edit) }
     it { should respond_to(:update) }
   end
 
-  context "request" do 
+  context "Request" do 
+    it "should render new" do 
+      get :new
+      response.should render_template(:new)
+    end
+
     it "should respond to edit" do 
       get :edit, :project_id => project.id
       assigns(:project).should_not be_nil
