@@ -9,8 +9,17 @@ class ProjectController < ApplicationController
   end
 
   def create 
+    @project = Project.new(params.except(:controller, :action, :format))
     begin 
+      if @project.valid?
+        @project.save
+        redirect_to dashboard_path
+      else
+        raise
+      end
     rescue
+      flash[:error] = @project.errors.full_messages
+      redirect_to new_project_path
     end
   end
   

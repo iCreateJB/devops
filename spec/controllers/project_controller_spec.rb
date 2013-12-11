@@ -6,6 +6,13 @@ describe ProjectController do
   let(:invoice){ FactoryGirl.create(:invoice, :project => project)}
   let(:user){ FactoryGirl.create(:user) }
 
+  let(:params){ 
+    {
+      :client_id => client.id, 
+      :project_name => 'Test 1'
+    }
+  }
+
   before(:each) do 
     user.confirm!
     sign_in user
@@ -27,6 +34,18 @@ describe ProjectController do
     it "should render new" do 
       get :new
       response.should render_template(:new)
+    end
+
+    it "should #create" do 
+      post :create, params
+      response.should redirect_to dashboard_path
+    end
+
+    it "should not #create" do 
+      params.delete(:project_name)
+      post :create, params
+      flash[:error].should_not be_nil
+      response.should redirect_to new_project_path
     end
 
     it "should respond to edit" do 
