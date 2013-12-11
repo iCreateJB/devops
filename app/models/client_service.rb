@@ -41,7 +41,7 @@ class ClientService
 
   def delete
     begin 
-      client = Client.where(customer_key: options[:customer_key])
+      client = Client.find_by_customer_key(options[:customer_key])
       stripe = Stripe::Customer.retrieve(options[:customer_key])
       stripe.delete
       client.destroy()

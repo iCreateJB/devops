@@ -121,7 +121,7 @@ describe ClientService do
     end
 
     it "should .delete" do 
-      Client.should_receive(:where).with(customer_key: options[:customer_key]).and_return(client)
+      Client.should_receive(:find_by_customer_key).with(options[:customer_key]).and_return(client)
       subject.delete
     end
   end
