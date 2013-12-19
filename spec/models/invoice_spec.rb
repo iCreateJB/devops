@@ -4,7 +4,7 @@ describe Invoice do
   subject{ Invoice.new }
 
   describe "Validations" do 
-    it { should validate_presence_of(:project_id) }
+    it { should validate_presence_of(:client_id) }
     it { should validate_presence_of(:amount) }
     it { should validate_presence_of(:tax) }
     it { should validate_presence_of(:total) }
@@ -22,7 +22,7 @@ describe Invoice do
     end
 
     it "belongs_to :client" do 
-      @belongs_to.include?(:project).should == true
+      @belongs_to.include?(:client).should == true
     end
 
     it "has 1 has_many" do 
@@ -43,7 +43,7 @@ describe Invoice do
       Invoice.attr_accessible[:default].size.should == 7
     end
     it "includes #project_id" do
-      Invoice.attr_accessible[:default].include?("project_id").should be_true
+      Invoice.attr_accessible[:default].include?("client_id").should be_true
     end
     it "includes #amount" do 
       Invoice.attr_accessible[:default].include?("amount").should be_true

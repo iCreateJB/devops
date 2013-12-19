@@ -18,6 +18,10 @@ describe "Routes" do
     { :get => '/invoice/1abdafjd/edit'}.should route_to( :controller => 'invoice', :action => 'edit', :id => "1abdafjd")
   end
 
+  it "GET => '/c/1'" do 
+    { :get => '/c/1' }.should route_to( :controller => 'invoice', :action => 'list', :client_id => '1')
+  end
+
   # Client viewing an invoice wishing to pay. 
   it "GET => '/i/1abdafjd'" do 
     { :get => '/i/1abdafjd'}.should route_to( :controller => 'invoice', :action => 'show', :invoice_key => '1abdafjd')

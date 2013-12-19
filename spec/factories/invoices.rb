@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :invoice do
-    project
+    client
     amount 100.00
     tax 7.00
     total 107.00
