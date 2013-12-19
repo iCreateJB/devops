@@ -4,6 +4,7 @@ Devops::Application.routes.draw do
   resources :project, :except => [ :index ]
   resources :invoice
   resources :client,  :except => [ :index ]
+  match '/c/:client_id',        :to => "invoice#list",  :as => "list_invoice"
   match '/i/:invoice_key',      :to => "invoice#show",  :as => "invoice"
   match '/s/:invoice_key',      :to => "invoice#send_invoice",  :as => "send_invoice"
   match '/invoice/:invoice_key',:to => "invoice#edit",  :as => "invoice_edit"

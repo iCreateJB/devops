@@ -23,7 +23,7 @@
           <%= button_tag 'Invoices', :class => "btn btn-success btn-xs", 
             "data-toggle" => "invoices-modal", "data-target" => "clientInvoices",
             "data-id" => i['id'], 
-            "onClick" => "$('#clientInvoices').modal()"
+            "onClick" => "$('#clientInvoices .modal-body #client_id').val('#{i['id']}'); getInvoices(); $('#clientInvoices').modal()"
           %>
           <%= button_tag 'Delete', :class => "btn btn-danger btn-xs", 
             "data-toggle" => "modal", "data-target" => "confirmDelete", 
@@ -48,6 +48,16 @@
       $('#delete').hide()
     }
   })
+
+  function getInvoices(){
+    var clientId     = $('#client_id').val();
+    $.ajax({
+      url: '/c/'+clientId,
+      type: 'GET',
+      data: { },
+      success: function(result){}
+    });
+  }
 
   function deleteClient(){
     var clientId     = $('#clientId').val();

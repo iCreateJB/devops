@@ -6,7 +6,9 @@
         <h4 class="modal-title" id="myModalLabel">Invoices</h4>
       </div>
       <div class="modal-body">
-        <input type="hidden" id="clientId"/>
+        <input type="hidden" id="client_id"/>
+        <div id="invoices">
+        </div>
       </div>
       <div class="modal-footer">
         <%= button_tag 'Create New', :class => "btn btn-default", :onClick => "window.location = '#{url_for(new_invoice_path)}'; return false;" %>

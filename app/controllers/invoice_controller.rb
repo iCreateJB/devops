@@ -22,6 +22,16 @@ class InvoiceController < ApplicationController
     @invoice = Invoice.find_by_invoice_key(params[:invoice_key])
   end
 
+  def list
+    @invoices = Invoice.where(client_id: params[:client_id])
+    respond_to do |format|
+      format.js   { render :list }
+    end
+  end
+
+  def update
+  end
+
   def send_invoice
     @invoice  = Invoice.find_by_invoice_key(params[:invoice_key])
     @contact  = Contact.find(params[:contact_id])
