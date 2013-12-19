@@ -2,7 +2,7 @@ Devops::Application.routes.draw do
   devise_for :users
 
   resources :project, :except => [ :index ]
-  resources :invoice, :only   => [ :create ]
+  resources :invoice
   resources :client,  :except => [ :index ]
   match '/i/:invoice_key',      :to => "invoice#show",  :as => "invoice"
   match '/s/:invoice_key',      :to => "invoice#send_invoice",  :as => "send_invoice"

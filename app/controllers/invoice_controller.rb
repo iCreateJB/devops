@@ -1,6 +1,9 @@
 class InvoiceController < ApplicationController
   before_filter :authenticate_user!, :except => [:show,:send_invoice]
 
+  def new
+  end
+
   def create
     @invoice = InvoiceService.generate_invoice(params)
     if @invoice.valid?
