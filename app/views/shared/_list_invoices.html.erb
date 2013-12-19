@@ -1,0 +1,16 @@
+<div class="invoices-modal fade" id="clientInvoices" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" style="margin-top:-15%;width:800px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Invoices</h4>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="clientId"/>
+      </div>
+      <div class="modal-footer">
+        <%= button_tag 'Create New', :class => "btn btn-default", :onClick => "window.location = '#{url_for(new_invoice_path)}'; return false;" %>
+      </div>
+    </div>
+  </div>
+</div>
