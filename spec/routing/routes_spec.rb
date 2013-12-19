@@ -14,8 +14,8 @@ describe "Routes" do
   end
 
   # Developer adding/editing an invoice from within the app
-  it "GET => '/invoice/1abdafjd'" do 
-    { :get => '/invoice/1abdafjd'}.should route_to( :controller => 'invoice', :action => 'edit', :invoice_key => "1abdafjd")
+  it "GET => '/invoice/1abdafjd/edit'" do 
+    { :get => '/invoice/1abdafjd/edit'}.should route_to( :controller => 'invoice', :action => 'edit', :id => "1abdafjd")
   end
 
   # Client viewing an invoice wishing to pay. 
