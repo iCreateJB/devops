@@ -139,14 +139,14 @@ ALTER SEQUENCE invoice_items_invoice_item_id_seq OWNED BY invoice_items.invoice_
 
 CREATE TABLE invoices (
     invoice_id integer NOT NULL,
-    project_id integer,
     amount numeric,
     tax numeric,
     total numeric,
     invoice_key character varying(255),
     paid_on timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    client_id integer
 );
 
 
@@ -415,3 +415,5 @@ INSERT INTO schema_migrations (version) VALUES ('20130221003951');
 INSERT INTO schema_migrations (version) VALUES ('20130306000829');
 
 INSERT INTO schema_migrations (version) VALUES ('20131206023705');
+
+INSERT INTO schema_migrations (version) VALUES ('20131219185307');
