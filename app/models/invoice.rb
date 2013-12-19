@@ -1,10 +1,10 @@
 class Invoice < ActiveRecord::Base
-  belongs_to  :project,       :foreign_key => :project_id
+  belongs_to  :client,       :foreign_key => :client_id
   has_many :invoice_items
 
-  attr_accessible :project_id, :amount, :tax, :total, :invoice_key, :paid_on
+  attr_accessible :client_id, :amount, :tax, :total, :invoice_key, :paid_on
 
-  validates :project_id, :amount, :tax, :total, :invoice_key, :presence => true
+  validates :client_id, :amount, :tax, :total, :invoice_key, :presence => true
 
   validates_uniqueness_of :invoice_key
 
