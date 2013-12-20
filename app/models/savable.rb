@@ -39,7 +39,12 @@ module Savable
                           :amount           => v[:amount],
                           :title            => v[:title],
                           :description      => v[:description])
+      Stripe::InvoiceItem.create(:customer  => options[:customer_key],
+                                 :amount    => (v[:amount].to_f*100).to_i,
+                                 :currency  => 'usd',
+                                 :description=>v[:description])
     end
+    Stripe::Invoice.create(:customer => options[:customer_key])
   end
 
   def update_stripe_customer

@@ -26,6 +26,7 @@ class InvoiceService
     @options[:total] = @tax + @total
     @options[:amount]= @total
     @options[:tax]   = @tax
+    @options[:customer_key] = Client.find(@options[:client_id]).customer_key
   end
 
   def calculate_total
