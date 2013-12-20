@@ -8,7 +8,6 @@ describe Invoice do
     it { should validate_presence_of(:amount) }
     it { should validate_presence_of(:tax) }
     it { should validate_presence_of(:total) }
-    it { should validate_presence_of(:invoice_key) }
   end
 
   describe "Relationships" do
@@ -40,7 +39,7 @@ describe Invoice do
 
   describe "#attr_accessible" do 
     it "has 7 attributes" do
-      Invoice.attr_accessible[:default].size.should == 7
+      Invoice.attr_accessible[:default].size.should == 8
     end
     it "includes #project_id" do
       Invoice.attr_accessible[:default].include?("client_id").should be_true

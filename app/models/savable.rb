@@ -25,18 +25,20 @@ module Savable
   end
 
   def save_invoice(options)
-    @invoice = Invoice.create(:project_id   => options[:project_id], 
-                              :amount       => options[:amount], 
-                              :tax          => options[:tax], 
-                              :total        => options[:total])
+    @invoice = Invoice.new(:client_id   => options[:client_id], 
+                              :amount      => options[:amount], 
+                              :tax         => options[:tax], 
+                              :total       => options[:total])
+    @invoice.save
+    return @invoice
   end
 
   def save_invoice_items(invoice,options)
-    options[:items].each do |item|
+    options[:items].each do |k,v|
       InvoiceItems.create(:invoice_id       => invoice.invoice_id, 
-                          :amount           => item[:amount],
-                          :title            => item[:title],
-                          :description      => item[:description])
+                          :amount           => v[:amount],
+                          :title            => v[:title],
+                          :description      => v[:description])
     end
   end
 

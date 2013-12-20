@@ -2,21 +2,20 @@ class InvoiceService
   include ActiveModel::Validations
   include Savable
   
-  attr_accessor :options, :client, :project, :items, :total, :tax
+  attr_accessor :options, :client, :items, :total, :tax
 
-  validates :client, :project, :items, :presence => true
+  validates :client, :items, :presence => true
 
   def self.generate_invoice(options={})
     invoice = self.new(options)
-    invoice.build_invoice if @items
+    invoice.build_invoice if !invoice.items.blank?
     invoice
   end
 
   def initialize(options={})
     @options    = options    
-    @client     = options[:client_id]
-    @project    = options[:project_id]
-    @items      = options[:items]
+    @client     = @options[:client_id]
+    @items      = @options[:items]
     @total      = 0.00
     @tax        = 0.00
   end
@@ -30,7 +29,7 @@ class InvoiceService
   end
 
   def calculate_total
-    @total = @items.map{ |i| i[:amount].to_f }.sum if @items
+    @total = @items.map{ |k,v| v[:amount].to_f }.sum if @items
   end
 
   def calculate_tax

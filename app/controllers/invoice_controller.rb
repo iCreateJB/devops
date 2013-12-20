@@ -2,14 +2,19 @@ class InvoiceController < ApplicationController
   before_filter :authenticate_user!, :except => [:show,:send_invoice]
 
   def new
+    @invoice = Invoice.new(client_id: session[:client_id])
+    @invoice.invoice_items.build
   end
 
   def create
-    @invoice = InvoiceService.generate_invoice(params)
+    params[:invoice].merge!(client_id: session[:client_id])
+    params[:invoice][:items] = params[:invoice].delete(:invoice_items_attributes)
+    @invoice = InvoiceService.generate_invoice(params[:invoice])
     if @invoice.valid?
       @invoice.save
       redirect_to :dashboard
     else
+      flash[:error] = @invoice.errors.full_messages
       redirect_to :dashboard
     end
   end
@@ -24,6 +29,7 @@ class InvoiceController < ApplicationController
 
   def list
     @invoices = Invoice.where(client_id: params[:client_id])
+    session[:client_id] = params[:client_id]
     respond_to do |format|
       format.js   { render :list }
     end
