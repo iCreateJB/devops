@@ -3,7 +3,7 @@
     <tr>
       <th>Invoice Key</th>
       <th>Total $</th>
-      <th>Sent On: <th>
+      <th>Sent On: </th>
       <th>Paid On: </th>
       <th colspan="2"></th>
     </tr>
@@ -11,10 +11,10 @@
   <tbody>
     <% @invoices.each do |i| %>
       <tr>
-        <td><%= i['invoice_key'] %></td>
-        <td><%= number_to_currency(i['total'], :precision => 2) %></td>
-        <td><%= i['created_at'].strftime('%m-%d-%Y') %></td>
-        <td><%= i['paid_on'].strftime('%m-%d-%Y') %></td>
+        <td><%= i.invoice_key %></td>
+        <td><%= number_to_currency(i.total, :precision => 2) %></td>
+        <td><%= i.created_at.strftime('%m-%d-%Y') %></td>
+        <td><%= i.paid_on.blank? ? 'Open' : i.paid_on.strftime('%m-%d-%Y') %></td>
         <td></td>
       </tr>
     <% end %>
