@@ -6,6 +6,7 @@ gem 'pg'
 gem 'jquery-rails'
 gem 'devise'
 gem 'stripe'
+gem 'nested_form'
 
 group :development, :test, :qa do
 	gem 'thin'
