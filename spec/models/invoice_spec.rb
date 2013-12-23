@@ -33,10 +33,6 @@ describe Invoice do
     end
   end
 
-  describe "Instance Methods" do 
-    it { should respond_to(:generate_invoice_key) }
-  end
-
   describe "#attr_accessible" do 
     it "has 7 attributes" do
       Invoice.attr_accessible[:default].size.should == 8
