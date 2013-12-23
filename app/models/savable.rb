@@ -26,9 +26,9 @@ module Savable
 
   def save_invoice(options)
     @invoice = Invoice.new(:client_id   => options[:client_id], 
-                              :amount      => options[:amount], 
-                              :tax         => options[:tax], 
-                              :total       => options[:total])
+                           :amount      => options[:amount], 
+                           :tax         => options[:tax], 
+                           :total       => options[:total])
     @invoice.save
     return @invoice
   end
