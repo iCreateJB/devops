@@ -4,6 +4,7 @@ describe InvoiceController do
   let(:client){ FactoryGirl.create(:client) }
   let(:project){ FactoryGirl.create(:project, :client => client) }
   let(:invoice){ FactoryGirl.create(:invoice, :client => client) }
+  let(:invoice_item){ FactoryGirl.create(:invoice_item, :invoice => invoice) }
   let(:contact){ FactoryGirl.create(:contact, :client => client) }
   let(:user){ FactoryGirl.create(:user) }
 
@@ -59,8 +60,18 @@ describe InvoiceController do
       post :create, params
       assigns(:invoice).should_not be_nil
     end
-
   end
+
+  context "destroy" do 
+    it "should delete all pending invoice items" do
+      stripe = stub("Stripe::InvoiceItem")
+      stripe.stub(:delete).and_return()
+      InvoiceItems.should_receive(:where).and_return([invoice_item])
+      Stripe::InvoiceItem.should_receive(:retrieve).and_return(stripe)
+      delete :destroy, :id => invoice.invoice_id
+      response.should redirect_to dashboard_path
+    end
+  end  
 
   context "Send Invoice" do 
     let(:params){ 
