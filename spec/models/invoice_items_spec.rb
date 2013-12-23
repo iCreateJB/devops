@@ -25,7 +25,7 @@ describe InvoiceItems do
 
   describe "#attr_accessible" do 
     it "has 4 attributes" do
-      InvoiceItems.attr_accessible[:default].size.should == 5
+      InvoiceItems.attr_accessible[:default].size.should == 6
     end
     it "includes #invoice_id" do
       InvoiceItems.attr_accessible[:default].include?("invoice_id").should be_true
@@ -38,6 +38,9 @@ describe InvoiceItems do
     end 
     it "includes #description" do 
       InvoiceItems.attr_accessible[:default].include?("description").should be_true
+    end
+    it "includes #item_key" do 
+      InvoiceItems.attr_accessible[:default].include?("item_key").should be_true
     end
   end
 end

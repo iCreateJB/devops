@@ -60,19 +60,19 @@ describe InvoiceService do
                                             :total      => total}).and_return(invoice)
 
       options[:items].each do |k,v|
-        InvoiceItems.should_receive(:create).with({:invoice_id => invoice.invoice_id, 
-                                                   :amount     => v[:amount],
-                                                   :title      => v[:title], 
-                                                   :description => v[:description]})        
         line_item = stub("Stripe::InvoiceItem", :cusotmer => anything, 
                                                 :amount   => (v[:amount].to_f*100).to_i,
                                                 :currency => 'usd',
-                                                :description => v[:description])
+                                                :description => v[:description],
+                                                :id => anything)
         Stripe::InvoiceItem.should_receive(:create).and_return(line_item)
-      end
 
-      @stripe = stub("Stripe::Invoice", :customer => anything)
-      Stripe::Invoice.should_receive(:create).and_return(@stripe)
+        InvoiceItems.should_receive(:create).with({:invoice_id => invoice.invoice_id, 
+                                                   :amount     => v[:amount],
+                                                   :title      => v[:title], 
+                                                   :description => v[:description],
+                                                   :item_key    => line_item.id})        
+      end
 
       subject.build_invoice
       subject.save

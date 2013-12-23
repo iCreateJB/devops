@@ -23,6 +23,7 @@ describe InvoiceController do
     it { should respond_to(:show) }
     it { should respond_to(:list) }
     it { should respond_to(:create) }
+    it { should respond_to(:destroy) }
     it { should respond_to(:send_invoice) }
   end
 
