@@ -38,10 +38,30 @@ class InvoiceController < ApplicationController
   def update
   end
 
+  def destroy 
+    begin 
+      @invoicesItems = InvoiceItems.where(invoice_id: params[:id])  
+      @invoicesItems.each do |i|
+        item = Stripe::InvoiceItem.retrieve(i.item_key)
+        item.delete
+        i.delete
+      end
+      redirect_to :dashboard
+    rescue
+      flash[:error] = 'There was an error processing your request.'
+    end
+  end
+
   def send_invoice
-    @invoice  = Invoice.find_by_invoice_key(params[:invoice_key])
-    @contact  = Contact.find(params[:contact_id])
-    # Send Invoice out.
+    begin
+      @invoice    = Invoice.find_by_invoice_key(params[:invoice_key])
+      @contact    = Contact.find(params[:contact_id])
+      invoice_key = Stripe::Invoice.create(customer: @contact.client.customer_key)
+      # Send Invoice out.      
+    rescue
+
+    end
     redirect_to :dashboard
   end
+
 end
