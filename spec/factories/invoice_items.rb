@@ -6,5 +6,8 @@ FactoryGirl.define do
     amount 15.00
     title "Database Upgrades"
     description "Add the following columns to this table for reporting..."
+    sequence :item_key do |n|
+      "#{n}"
+    end
   end
 end
