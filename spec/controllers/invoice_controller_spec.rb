@@ -3,7 +3,7 @@ require 'spec_helper'
 describe InvoiceController do
   let(:client){ FactoryGirl.create(:client) }
   let(:project){ FactoryGirl.create(:project, :client => client) }
-  let(:invoice){ FactoryGirl.create(:invoice, :client => client)}
+  let(:invoice){ FactoryGirl.create(:invoice, :client => client) }
   let(:contact){ FactoryGirl.create(:contact, :client => client) }
   let(:user){ FactoryGirl.create(:user) }
 
@@ -29,7 +29,7 @@ describe InvoiceController do
 
   context "request" do 
     it "should respond to invoice edit" do 
-      get :edit, :invoice_key => invoice.invoice_key
+      get :edit, :id => invoice.invoice_id
       assigns(:invoice).should_not be_nil
     end
 

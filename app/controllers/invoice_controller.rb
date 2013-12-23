@@ -20,7 +20,7 @@ class InvoiceController < ApplicationController
   end
 
   def edit
-    @invoice = Invoice.find_by_invoice_key(params[:invoice_key])
+    @invoice = Invoice.find(params[:id])
   end
 
   def show 
