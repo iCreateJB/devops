@@ -19,9 +19,9 @@
       <%= label_tag :email %>
       <%= text_field_tag :email, nil, :class => "form-control", :placeholder => "Email address" %>
 
-      <p>
+<!--  <p>
         <h4><%= button_tag "Add Project", :class => "btn btn-primary btn-xs", :onclick => "$('.project-info').slideToggle();" %> <small>( Optional )</small></h4>
-      </p>
+      </p> -->
 
       <div class="project-info">
         <%= label_tag :project_name %>
@@ -31,6 +31,8 @@
         <%= text_field_tag :due_date, nil, :class => "form-control", :placeholder => "Due Date" %>
         <br/>
       </div>
+
+      <br/>
 
       <%= submit_tag "Create", :class => "btn btn-lg btn-success btn-block" %>
 
