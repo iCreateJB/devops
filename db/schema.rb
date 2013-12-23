@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131219185307) do
+ActiveRecord::Schema.define(:version => 20131222235931) do
 
   create_table "clients", :force => true do |t|
     t.integer  "user_id"
@@ -42,8 +42,9 @@ ActiveRecord::Schema.define(:version => 20131219185307) do
     t.decimal  "amount"
     t.string   "title"
     t.string   "description"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+    t.string   "item_key",    :limit => 55
   end
 
   create_table "invoices", :primary_key => "invoice_id", :force => true do |t|
