@@ -44,7 +44,7 @@ class ClientService
       client = Client.find_by_customer_key(options[:customer_key])
       stripe = Stripe::Customer.retrieve(options[:customer_key])
       stripe.delete
-      client.destroy()
+      client.delete
     rescue => e
       Rails.logger.error "[ERROR] #{Time.now} : #{e}"
     end
