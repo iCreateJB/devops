@@ -110,7 +110,8 @@ CREATE TABLE invoice_items (
     title character varying(255),
     description character varying(255),
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    item_key character varying(55)
 );
 
 
@@ -417,3 +418,5 @@ INSERT INTO schema_migrations (version) VALUES ('20130306000829');
 INSERT INTO schema_migrations (version) VALUES ('20131206023705');
 
 INSERT INTO schema_migrations (version) VALUES ('20131219185307');
+
+INSERT INTO schema_migrations (version) VALUES ('20131222235931');
