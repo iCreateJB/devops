@@ -1,0 +1,23 @@
+<div class="row">
+  <div class="col-md-6">
+    <%= nested_form_for @invoice, :url => url_for(:controller => 'invoice', :action => :update), :method => :put do |f| %>
+      <%= f.fields_for :invoice_items do |invoice_item| %>
+        <%= invoice_item.label :amount %>
+        <%= invoice_item.text_field :amount, :class => "form-control", :style => "width:150px;", :placeholder => "Amount" %>
+        <%= invoice_item.label :title %>
+        <%= invoice_item.text_field :title, :class => "form-control", :placeholder => "Title" %>
+        <%= invoice_item.label :description %>
+        <%= invoice_item.text_field :description, :class => "form-control", :placeholder => "Description" %>
+        <%= invoice_item.link_to_remove "Remove this item" %>
+      <% end %>
+      <p><%= f.link_to_add "Add a item", :invoice_items %></p>
+      <%= submit_tag "Update", :class => "btn btn-lg btn-success btn-block" %>
+    <% end %>
+  </div>
+  <div class="col-md-6">
+    <h3>Tell us a bit about your next client!<small>.....</small></h3>
+    <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+    <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+    <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+  </div>
+</div>
