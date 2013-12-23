@@ -35,16 +35,17 @@ module Savable
 
   def save_invoice_items(invoice,options)
     options[:items].each do |k,v|
+      item = Stripe::InvoiceItem.create(:customer  => options[:customer_key],
+                                        :amount    => (v[:amount].to_f*100).to_i,
+                                        :currency  => 'usd',
+                                        :description=>v[:description])
+
       InvoiceItems.create(:invoice_id       => invoice.invoice_id, 
                           :amount           => v[:amount],
                           :title            => v[:title],
-                          :description      => v[:description])
-      Stripe::InvoiceItem.create(:customer  => options[:customer_key],
-                                 :amount    => (v[:amount].to_f*100).to_i,
-                                 :currency  => 'usd',
-                                 :description=>v[:description])
+                          :description      => v[:description],
+                          :item_key         => item.id)
     end
-    Stripe::Invoice.create(:customer => options[:customer_key])
   end
 
   def update_stripe_customer
