@@ -1,7 +1,24 @@
 require 'spec_helper'
 
 describe Invoice do
+  let(:invoice){ FactoryGirl.create(:invoice) }
+  let(:item_one){ FactoryGirl.create(:invoice_item, :invoice => invoice, :amount => 100.00) }
+  let(:item_two){ FactoryGirl.create(:invoice_item, :invoice => invoice, :amount => 50.00) }
+
   subject{ Invoice.new }
+
+  before(:each) do 
+    item_one
+    item_two
+  end
+
+  after do 
+    DatabaseCleaner.clean
+  end
+
+  describe "Instance Methods" do 
+    it { should respond_to(:recalculate) }
+  end
 
   describe "Validations" do 
     it { should validate_presence_of(:client_id) }
@@ -54,6 +71,32 @@ describe Invoice do
     end
     it "includes #paid_on" do 
       Invoice.attr_accessible[:default].include?("paid_on").should be_true
+    end
+  end
+
+  context "Instance Methods" do 
+    before(:each) do 
+      invoice.recalculate
+      @invoice = Invoice.find(invoice.invoice_id)
+    end
+
+    it "should not raise an error when recalculating" do 
+      expect{ invoice.recalculate }.to_not raise_error
+    end
+
+    it "should recalculate the invoice total" do 
+      amount = invoice.invoice_items.map{|i| i[:amount].to_f }.sum
+      tax    = (amount * 0.0725).to_f
+      @invoice.total.to_f.should == (amount + tax) 
+    end
+
+    it "should recalculate the invoice amount" do 
+      @invoice.amount.to_f.should == invoice.invoice_items.map{|i| i[:amount].to_f }.sum
+    end
+
+    it "should recalculate the invoice tax" do 
+      amount = invoice.invoice_items.map{|i| i[:amount].to_f }.sum
+      @invoice.tax.to_f.should == (amount * 0.0725).to_f
     end
   end
 end

@@ -10,4 +10,14 @@ class Invoice < ActiveRecord::Base
 
   validates_uniqueness_of :invoice_key
 
+  def recalculate
+    items      = invoice_items 
+    if items
+      self.amount = items.map{|v| v[:amount].to_f }.sum
+      self.tax    = (amount * 0.0725).to_f
+      self.total  = amount + tax
+      save
+    end
+  end
+
 end

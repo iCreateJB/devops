@@ -52,6 +52,7 @@ class InvoiceController < ApplicationController
             :currency  => 'usd', :description=>v[:description])
           InvoiceItems.create(:invoice_id => params[:id], :amount => v[:amount],:title => v[:title], :description => v[:description], :item_key => item.id)      
         end
+      invoice.recalculate
       end
     rescue
       flash[:error] = 'There was an error updating your request.'
