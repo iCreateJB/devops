@@ -1,11 +1,21 @@
 require 'spec_helper'
 
 describe InvoiceService do 
+  let(:client){ FactoryGirl.create(:client) }
+
+  before(:each) do 
+    client
+  end
+
+  after do 
+    DatabaseCleaner.clean
+  end
+
   subject { InvoiceService.new(options) }
 
   let(:options){ 
     {
-      :client_id  => 1, 
+      :client_id  => client.id, 
       :items      => {
         "0" => { :amount => 15.00, :title => "Update Website.", :description => "Add Twitter Icon"}
       }

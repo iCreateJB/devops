@@ -62,6 +62,23 @@ describe InvoiceController do
     end
   end
 
+  context "Update Invoice" do 
+    it "should update an invoice" do 
+      stripe = stub("Stripe::InvoiceItem")
+      stripe.stub(:amount=).and_return()
+      stripe.stub(:description=).and_return()
+      stripe.stub(:save).and_return()
+      Stripe::InvoiceItem.should_receive(:retrieve).and_return(stripe)      
+      put :update, :id => invoice.invoice_id, 
+        :invoice => {
+          :invoice_items_attributes => {
+            "0" => { :title => 'DB Column Update', :description => 'Add in these columns', :amount => "75.00", :id => invoice_item.invoice_item_id }
+          }
+        }
+      response.should redirect_to dashboard_path
+    end
+  end
+
   context "destroy" do 
     it "should delete all pending invoice items" do
       stripe = stub("Stripe::InvoiceItem")
