@@ -1,0 +1,5 @@
+<%= link_to "View Invoice", invoice_path(invoice_key: @invoice.invoice_key) %> 
+
+Or 
+
+<%= url_for(invoice_path(invoice_key: @invoice.invoice_key)) %>
