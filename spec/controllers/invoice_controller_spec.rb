@@ -29,6 +29,12 @@ describe InvoiceController do
   end
 
   context "request" do 
+    it "should respond to invoice new" do 
+      session[:client_id] = client.id
+      get :new
+      response.should render_template("new")
+    end
+
     it "should respond to invoice edit" do 
       get :edit, :id => invoice.invoice_id
       assigns(:invoice).should_not be_nil
@@ -50,13 +56,20 @@ describe InvoiceController do
       { 
         :client_id => client.id, 
         :invoice => {
-          "0" => { :title => 'DB Column Update', :description => 'Add in these columns', :amount => "75.00" },
-          "1" => { :title => 'Save Twitter followers', :description => 'Save all new followers from this point', :amount => '150.00'}
+          :invoice_items_attributes => {
+            "0" => { :title => 'DB Column Update', :description => 'Add in these columns', :amount => "75.00" },
+            "1" => { :title => 'Save Twitter followers', :description => 'Save all new followers from this point', :amount => '150.00'}
+          }
         }
       }
     }
 
     it "should create a new invoice with the following items" do 
+      stripe = stub("Stripe::InvoiceItem", :id => 1)
+      params[:invoice][:invoice_items_attributes].each do |i|
+        Stripe::InvoiceItem.should_receive(:create).and_return(stripe)
+      end
+      session[:client_id] = client.id
       post :create, params
       assigns(:invoice).should_not be_nil
     end
