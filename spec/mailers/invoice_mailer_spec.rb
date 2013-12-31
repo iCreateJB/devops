@@ -9,7 +9,8 @@ describe InvoiceMailer do
   let(:options){
     {
       :invoice => invoice,
-      :contact => contact
+      :contact => contact,
+      :issuer  => user
     }
   }
 
@@ -43,7 +44,7 @@ describe InvoiceMailer do
   end
 
   it 'should set the subject to the correct subject' do
-    ActionMailer::Base.deliveries.first.subject.should == "#{contact.email}, your invoice is ready!"
+    ActionMailer::Base.deliveries.first.subject.should == "#{user.email} has sent you an invoice."
   end  
 
   it 'renders the sender email' do  
