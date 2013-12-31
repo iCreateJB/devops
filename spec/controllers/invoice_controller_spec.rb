@@ -100,7 +100,10 @@ describe InvoiceController do
 
     it "should attempt to send an invoice" do 
       stripe = stub("Stripe::Invoice")
-      Stripe::Invoice.should_receive(:create).and_return(stripe)      
+      mailer = stub("InvoiceMailer")
+      mailer.stub(:deliver).and_return(mailer)
+      Stripe::Invoice.should_receive(:create).and_return("id" => 12345)      
+      InvoiceMailer.should_receive(:send_invoice).and_return(mailer)
       post :send_invoice, params
       assigns(:invoice).should_not be_nil
       assigns(:contact).should_not be_nil
