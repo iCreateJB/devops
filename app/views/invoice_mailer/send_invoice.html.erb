@@ -1,5 +1,5 @@
-<%= link_to "View Invoice", invoice_path(invoice_key: @invoice.invoice_key) %> 
+<%= link_to "View Invoice", url_for({host: ActionMailer::Base.default_url_options[:host], controller: 'invoice', action: 'show', invoice_key: @invoice.invoice_key}) %> 
 
 Or 
 
-<%= url_for(invoice_path(invoice_key: @invoice.invoice_key)) %>
+<%= url_for({host: ActionMailer::Base.default_url_options[:host], controller: 'invoice', action: 'show', invoice_key: @invoice.invoice_key}) %>
