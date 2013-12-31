@@ -81,7 +81,7 @@ class InvoiceController < ApplicationController
       invoice_key = Stripe::Invoice.create(customer: @contact.client.customer_key)
       @invoice.update_attributes(invoice_key: invoice_key["id"])
       # Send Invoice out.      
-      InvoiceMailer.send_invoice({invoice: @invoice, contact: @contact}).deliver
+      InvoiceMailer.send_invoice({invoice: @invoice, contact: @contact, issuer: current_user}).deliver
     rescue
       flash[:error] = 'There was an error processing your request.'
     end

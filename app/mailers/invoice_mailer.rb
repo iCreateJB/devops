@@ -4,6 +4,7 @@ class InvoiceMailer < ActionMailer::Base
   def send_invoice(options={})
     @invoice = options[:invoice]
     @contact = options[:contact]
-    mail to: @contact.email, subject: "#{@contact.email}, your invoice is ready!"
+    @user    = options[:issuer]
+    mail to: @contact.email, subject: "#{@user.email} has sent you an invoice."
   end
 end
