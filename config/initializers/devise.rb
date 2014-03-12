@@ -6,6 +6,8 @@ Devise.setup do |config|
   # note that it will be overwritten if you use your own mailer class with default "from" parameter.
   config.mailer_sender = "info@devops.com"
 
+  config.secret_key = 'e8df7fc0cd80c53c6bdd03f08b5bc27cf93e9ae9106d1e87bad579f19995c38fea63eca32a91e339d54800163364bd046dbfb92047fcd790fd42fe9cf3e4bbbc'
+
   # Configure the class responsible to send e-mails.
   # config.mailer = "Devise::Mailer"
 
@@ -180,7 +182,7 @@ Devise.setup do |config|
 
   # ==> Configuration for :token_authenticatable
   # Defines name of the authentication token params key
-  config.token_authentication_key = :auth_token
+  # config.token_authentication_key = :auth_token
 
   # ==> Scopes configuration
   # Turn scoped views on. Before rendering "sessions/new", it will first check for
