@@ -1,15 +1,15 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.13'
+gem 'rails', '3.2.16'
 
 gem 'pg'
 gem 'jquery-rails'
 gem 'devise'
 gem 'stripe'
 gem 'nested_form'
+gem 'unicorn'
 
 group :development, :test, :qa do
-	gem 'thin'
   gem 'rspec'
   gem 'rspec-rails'
   gem 'database_cleaner'
