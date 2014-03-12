@@ -19,17 +19,17 @@
         <td><%= i['email'] %></td>
         <td>
           <%= link_to 'Edit', edit_client_path(i['id']), :class => "btn btn-link" %>
-          <%= button_tag 'Invoices', :class => "btn btn-success btn-xs", 
-            "data-toggle" => "modal", 
+          <%= button_tag 'Invoices', :class => "btn btn-success btn-xs",
+            "data-toggle" => "modal",
             "data-target" => "#clientInvoices",
-            "data-id" => i['id'], 
+            "data-id" => i['id'],
             "onClick" => "$('#clientInvoices .modal-body #client_id').val('#{i['id']}'); getInvoices();"
           %>
-          <%= button_tag 'Delete', :class => "btn btn-danger btn-xs", 
-            "data-toggle" => "modal", 
-            "data-target" => "#confirmDelete", 
+          <%= button_tag 'Delete', :class => "btn btn-danger btn-xs",
+            "data-toggle" => "modal",
+            "data-target" => "#confirmDelete",
             "data-id" => i['id'],
-            "onClick" => "$('.modal-body #customer_key').val( '#{i['customer_key']}' ); $('.modal-body #clientId').val( #{i['id']} );" 
+            "onClick" => "$('.modal-body #customer_key').val( '#{i['customer_key']}' ); $('.modal-body #clientId').val( #{i['id']} );"
           %>
         </td>
       </tr>
@@ -40,36 +40,3 @@
 <%= render :partial => 'shared/list_invoices' %>
 
 <%= render :partial => 'shared/delete_client' %>
-
-<script type="text/javascript">
-  $('#del-confirmation').bind('blur keyup', function(){
-    if ($('#del-confirmation').val().match(/delete/i) != null){
-      $('#delete').show()
-    }else{
-      $('#delete').hide()
-    }
-  })
-
-  function getInvoices(){
-    var clientId     = $('#client_id').val();
-    $.ajax({
-      url: '/c/'+clientId,
-      type: 'GET',
-      data: { },
-      success: function(result){}
-    });
-  }
-
-  function deleteClient(){
-    var clientId     = $('#clientId').val();
-    var customer_key = $('#customer_key').val();
-    $.ajax({
-      url: '/client/'+clientId,
-      type: 'DELETE',
-      data: { customer_key: customer_key },
-      success: function(result) {
-        window.location.reload();
-      }
-    });
-  }
-</script>
